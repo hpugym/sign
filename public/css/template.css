@@ -1,0 +1,56 @@
+*{margin: 0; padding: 0; list-style-type: none;}
+/*top*/
+/*.topright{border: 1px solid red;}*/
+.topright ul{padding-top:15px; float:right; padding-right:12px;}
+.topright ul li{list-style-type: none; float:left; padding-left:9px; padding-right:9px; background:url(../images/line.gif) no-repeat right;}
+.topright ul li:last-child{background:none;}
+.topright ul li a{font-size:13px; color:#e9f2f7;}
+.topright ul li a:hover{color:#fff;}
+.topright ul li span{margin-top:-2px;float:left;padding-right:3px;}
+.user{height:30px;background:url(../images/ub1.png) repeat-x;clear:both;margin-top:-5px;float:right; margin-right:12px;border-radius:30px; behavior:url('js/pie.htc'); white-space:nowrap;position:relative;}
+.user span{display:inline-block;padding-right:10px; background:url(../images/user.png) no-repeat 15px 10px; line-height:30px; font-size:14px;color:#b8ceda; padding-left:20px; padding-left:35px;}
+.user b{display:inline-block;width:20px;height:18px; background:url(../images/msg.png);text-align:center; font-weight:normal; color:#fff;font-size:14px;margin-right:13px; margin-top:7px; line-height:18px;}
+.user i{display:inline-block;margin-right:5px;font-style:normal;line-height:30px; font-size:14px;color:#b8ceda;}
+.helpimg{ margin-top: 4px;}
+
+@media screen and (max-width: 800px){
+    .topright{
+        display: none;
+    }
+}
+
+/* left_menu*/
+.menu{border: 0; background:#f0f9fd;  height: 600px; width: 200px;}
+.menu2{ border: 0; background:#f0f9fd;  height: 600px; width: 30px; display: none}
+.lefttop{background:url(../images/lefttop.gif) repeat-x;height:40px;color:#fff;font-size:18px;line-height:40px;}
+.lefttop span{margin-left:18px; margin-top:10px;margin-right:18px; background:url(../images/leftico.png) no-repeat; width:20px; height:21px;float:left; }
+.leftmenu{width:200px;overflow:hidden; background:url(../images/leftline.gif) repeat-y right;}
+.leftmenu2{width:30px;overflow:hidden; background:url(../images/leftline.gif) repeat-y right;}
+.leftmenu dd{background:url(../images/leftmenubg.gif) repeat-x;line-height:35px;font-weight:bold;font-size:16px;border-right:solid 1px #b7d5df;}
+.leftmenu dd span{margin:10px 8px 0 8px;}
+.leftmenu dd .menuson{display:none; }
+.leftmenu2 dd .menuson2{ display: none;}
+.menuson2{ border: 1px solid transparent; overflow: hidden; line-height: 30px; font-weight: normal; background: #f0f9fd;}
+.menuson {line-height:30px; font-weight:normal; }
+.menuson li,.menuson2 li{cursor:pointer;}
+.menuson2 li{padding: 2px 20px 2px 20px; border-bottom: 1px solid silver;}
+
+.menuson li cite{display:block; float:left; margin-left:32px; background:url(../images/list.gif) no-repeat; width:16px; height:16px; margin-top:7px;}
+
+.menuson li a{ display:block; *display:inline; *padding-top:5px;}
+.menuson2{ z-index: 999; left: 30px; position: absolute; margin-top: -60px;}
+.title,.title2{cursor:pointer;  color: #262626;}
+.title img{ margin-right: 10px; margin-left: 10px;}
+.title img,.title2 img{width: 20px; height: 20px;}
+.title2{ margin: 40px 5px 40px 5px;}
+.index{color: #262626 }
+/*屏幕过小的时候菜单隐藏控制*/
+.menu-controll{background:url(../images/lefttop.gif) repeat-x;height:40px;}
+.menu-controll span{margin-left:2px; margin-top:10px; background:url(../images/leftico.png) no-repeat; width:20px; height:21px;float:left; }
+
+/*main共用格式*/
+
+
+/*index首页样式*/
+
+/*notice公告栏样式*/
