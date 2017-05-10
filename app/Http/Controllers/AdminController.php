@@ -23,7 +23,7 @@ class AdminController extends Controller{
             exit(0);
         }
         if(isset($_GET['require']) && $_GET['require'] != ""){
-            $list = Teacher::where('teach_id', '=', trim($_GET['require']))->Paginate(1);
+            $list = Teacher::where('teach_id', '=', trim($_GET['require']))->join('users', 'user_num', '=', 'teach_id')->Paginate(20);
             //dd($list);
             $page = Teacher::pageAction($list,7,$request->getUri());
             return view("admin/teachlist",[
@@ -32,7 +32,7 @@ class AdminController extends Controller{
                 'count'=> 1
             ]);
         }
-        $list = Teacher::Paginate(20);
+        $list = Teacher::join('users', 'user_num', '=', 'teach_id')->Paginate(20);
         //dd($list);
         $page = Teacher::pageAction($list,7,$request->getUri());
         return view("admin/teachlist",[
@@ -119,7 +119,15 @@ class AdminController extends Controller{
                 'teach_level' => $teach_level
             ]);
             if($num > 0){
-                return json_encode(array("code"=>"0000"),JSON_UNESCAPED_UNICODE);
+                //更新user表中的工号
+                $mark = DB::table("users")->where('user_id', '=', $_POST['teach_id'])->update([
+                    'user_num' => $teach_id
+                ]);
+                if($mark > 0){
+                    return json_encode(array("code"=>"0000"),JSON_UNESCAPED_UNICODE);
+                }else{
+                    return json_encode(array("code"=>"0001"),JSON_UNESCAPED_UNICODE);
+                }
             }
             else{
                 return json_encode(array("code"=>"0001"),JSON_UNESCAPED_UNICODE);
@@ -151,6 +159,58 @@ class AdminController extends Controller{
         }
     }
 
+    /**设置为管理员账号
+     * @param Request $request
+     * @return string
+     */
+    public function adminSet(Request $request){
+        if(empty(session()->get("user_id"))){
+            //header('Refresh:0;url='.url("login"));
+            return json_encode(array("code"=>"0002"),JSON_UNESCAPED_UNICODE);
+            //exit(0);
+        }
+        if($request->isMethod("POST")){
+            $user_id = $_POST['user_id'];
+            $num = DB::table('users')->where('user_id', '=', $user_id)->update([
+                'user_type' => 1
+            ]);
+            if($num > 0){
+                return json_encode(array("code"=>"0000"),JSON_UNESCAPED_UNICODE);
+            }else{
+                return json_encode(array("code"=>"0001"),JSON_UNESCAPED_UNICODE);
+            }
+        }else{
+            return json_encode(array("code"=>"0002"),JSON_UNESCAPED_UNICODE);
+        }
+    }
+
+
+    public function passReset(Request $request){
+        if(empty(session()->get("user_id"))){
+            //header('Refresh:0;url='.url("login"));
+            return json_encode(array("code"=>"0002"),JSON_UNESCAPED_UNICODE);
+            //exit(0);
+        }
+        if($request->isMethod("POST")){
+            $user_id = $_POST['user_id'];
+            $pass = md5("123456");
+            $num = DB::table('users')->where('user_id', '=', $user_id)->update([
+                'user_pass' => $pass
+            ]);
+            if($num > 0){
+                return json_encode(array("code"=>"0000"),JSON_UNESCAPED_UNICODE);
+            }else{
+                return json_encode(array("code"=>"0001"),JSON_UNESCAPED_UNICODE);
+            }
+        }else{
+            return json_encode(array("code"=>"0002"),JSON_UNESCAPED_UNICODE);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function student(Request $request){
         if(empty(session()->get("user_id"))){
             header('Refresh:0;url='.url("login"));
