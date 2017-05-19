@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Course;
 use App\Local;
 use App\Student;
 use App\Teacher;
@@ -400,6 +401,136 @@ class AdminController extends Controller{
                 return json_encode(array("code"=>"0000"),JSON_UNESCAPED_UNICODE);
             }
             else{
+                return json_encode(array("code"=>"0001"),JSON_UNESCAPED_UNICODE);
+            }
+        }else{
+            return json_encode(array("code"=>"0002"),JSON_UNESCAPED_UNICODE);
+        }
+    }
+
+
+    public function course(Request $request){
+        if(empty(session()->get("user_id"))){
+            header('Refresh:0;url='.url("login"));
+            //return json_encode(array("code"=>"0002"),JSON_UNESCAPED_UNICODE);
+            exit(0);
+        }
+        if(isset($_GET['require']) && $_GET['require'] != ""){
+            $list = Course::where('course_num', '=', trim($_GET['require']))->orderBy('course_num','asc')->Paginate(1);
+            //dd($list);
+            $page = Local::pageAction($list,7,$request->getUri());
+            return view("admin/courselist",[
+                'courses'=>$list,
+                'paging'=>$page,
+                'count'=> 1
+            ]);
+        }
+        $list = Course::orderBy('course_num','asc')->Paginate(50);
+        //dd($list);
+        $page = Local::pageAction($list,7,$request->getUri());
+        return view("admin/courselist",[
+            'courses'=>$list,
+            'paging'=>$page,
+            'count'=> 1
+        ]);
+    }
+
+    public function courseAdd(){
+
+        if(empty(session()->get("user_id"))){
+            header('Refresh:0;url='.url("login"));
+//            return json_encode(array("code"=>"0002"),JSON_UNESCAPED_UNICODE);
+            exit(0);
+        }
+        return view("admin/courseadd");
+    }
+
+    public function courseAddAction(Request $request){
+        if(empty(session()->get("user_id"))){
+            //header('Refresh:0;url='.url("login"));
+            return json_encode(array("code"=>"0002"),JSON_UNESCAPED_UNICODE);
+            //exit(0);
+        }
+
+        if($request->isMethod("POST")){
+            $course_num = $_POST['course_num'];
+            $count = DB::table('courses')->where('course_num', '=', $course_num)->count();
+            if($count > 0){
+                return json_encode(array("code"=>"0003"),JSON_UNESCAPED_UNICODE);
+            }
+            $course_name = $_POST['course_name'];
+            $course_type = $_POST['course_type'];
+            $course_intro = $_POST['course_intro'];
+            $num = DB::table('courses')->insert([
+                'course_num' => $course_num,
+                'course_name' => $course_name,
+                'course_type' => $course_type,
+                'course_intro' => $course_intro,
+            ]);
+            if($num > 0){
+                return json_encode(array("code"=>"0000"),JSON_UNESCAPED_UNICODE);
+            }else{
+                return json_encode(array("code"=>"0001"),JSON_UNESCAPED_UNICODE);
+            }
+        }else{
+            return json_encode(array("code"=>"0002"),JSON_UNESCAPED_UNICODE);
+        }
+
+    }
+
+    /**
+     * 课程信息的修改
+     * @param Request $request
+     * @return string
+     */
+    public function courseEdit(Request $request){
+        if(empty(session()->get("user_id"))){
+            //header('Refresh:0;url='.url("login"));
+            return json_encode(array("code"=>"0002"),JSON_UNESCAPED_UNICODE);
+            //exit(0);
+        }
+
+        if($request->isMethod("POST")){
+            $course_num = $_POST['course_num'];
+            $course_name = trim($_POST['course_name']);
+            $course_type = $_POST['course_type'];
+            $course_intro = trim($_POST['course_intro']);
+            $num = DB::table('courses')->where('course_num', '=', $course_num)->update([
+                'course_name' => $course_name,
+                'course_type' => $course_type,
+                'course_intro' => $course_intro
+            ]);
+
+            if($num > 0){
+                return json_encode(array("code"=>"0000"),JSON_UNESCAPED_UNICODE);
+            }else{
+                return json_encode(array("code"=>"0001"),JSON_UNESCAPED_UNICODE);
+            }
+        }else{
+            return json_encode(array("code"=>"0002"),JSON_UNESCAPED_UNICODE);
+        }
+    }
+
+
+    /**
+     * 课程信息删除
+     * @param Request $request
+     * @return string
+     */
+    public function courseDel(Request $request){
+
+        if(empty(session()->get("user_id"))){
+            //header('Refresh:0;url='.url("login"));
+            return json_encode(array("code"=>"0002"),JSON_UNESCAPED_UNICODE);
+            //exit(0);
+        }
+
+        if($request->isMethod("POST")){
+            $course_num = $_POST['course_num'];
+            $num = DB::table('courses')->where("course_num", "=", $course_num)->delete();
+            if($num > 0){
+                return json_encode(array("code"=>"0000"),JSON_UNESCAPED_UNICODE);
+            }else{
                 return json_encode(array("code"=>"0001"),JSON_UNESCAPED_UNICODE);
             }
         }else{
