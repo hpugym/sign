@@ -136,6 +136,7 @@
                     <li id="onactive-system-teacher"><cite></cite><a href="{{url("admin/teachers")}}">教师管理</a><i></i></li>
                     <li id="onactive-system-classroom"><cite></cite><a href="{{url("admin/classRooms")}}">教室管理</a><i></i></li>
                     <li id="onactive-system-student"><cite></cite><a href="{{url("admin/students")}}">学生管理</a><i></i></li>
+                    <li id="onactive-system-course"><cite></cite><a href="{{url("admin/courses")}}">课程管理</a><i></i></li>
                     <li id="onactive-system-notice"><cite></cite><a href="{{url("admin/notices")}}">发布公告</a><i></i></li>
                     <li id="onactive-system-message"><cite></cite><a href="{{url("admin/messages")}}">发送消息</a><i></i></li>
                 </ul>
