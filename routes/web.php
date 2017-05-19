@@ -38,7 +38,7 @@ Route::any('course/add', ['uses' => 'CourseController@courseAdd']);//课程增�
 Route::any('course/edit-action', ['uses' => 'CourseController@courseEditAction']);//课程修改操作
 Route::any('course/del-action', ['uses' => 'CourseController@courseDelAction']);//课程删除操作
 Route::any('course/add-action', ['uses' => 'CourseController@courseAddAction']);//课程增加操作
-Route::any('course/add-checking', ['uses' => 'CourseController@courseAddCheck']);//课程增加操作
+Route::any('course/add-checking', ['uses' => 'CourseController@courseAddCheck']);//课程增加操作验证
 
 
 
@@ -73,8 +73,13 @@ Route::any('admin/teacher/edit-action',    ['uses'=> 'AdminController@teacherEdi
 Route::any('admin/teacher/add',    ['uses'=> 'AdminController@teacherAdd']);//教师列表添加
 Route::any('admin/teacher/add-action',    ['uses'=> 'AdminController@teacherAddAction']);//教师列表添加行为
 Route::any('admin/teacher/del-action',    ['uses'=> 'AdminController@teacherDel']);//教师列表删除行为
+
 Route::any('admin/teacher/admin-action', ['uses' => 'AdminController@adminSet']);//教师列表置为管理员
 Route::any('admin/teacher/passReset-action', ['uses' => 'AdminController@passReset']);//教师列表密码重置
+
+Route::any('admin/teacher/admin-action',    ['uses'=> 'AdminController@adminSet']);//教师列表置为管理员
+Route::any('admin/teacher/passReset-action',    ['uses'=> 'AdminController@passReset']);//教师列表密码重置
+
 
 Route::any('admin/students',    ['uses'=> 'AdminController@student']);//学生列表
 Route::any('admin/students/edit-action',    ['uses'=> 'AdminController@studentEdit']);//学生列表编辑行为
@@ -84,6 +89,15 @@ Route::any('admin/students/del-action',    ['uses'=> 'AdminController@studentDel
 Route::any('admin/classRooms',    ['uses'=> 'AdminController@classRoom']);//教室列表
 Route::any('admin/classRoom/edit-action',    ['uses'=> 'AdminController@classRoomEdit']);//教室列表编辑行为
 Route::any('admin/classRoom/del-action',    ['uses'=> 'AdminController@classRoomDel']);//教室列表删除行为
+
+
+Route::any('admin/courses',['uses'=> 'AdminController@course']);//课程列表
+Route::any('admin/course/del-action',['uses'=> 'AdminController@courseDel']);//课程删除
+Route::any('admin/course/edit-action',['uses'=> 'AdminController@courseEdit']);//课程修改
+Route::any('admin/course/add',['uses'=> 'AdminController@courseAdd']);//课程新增
+Route::any('admin/course/add-action',['uses'=> 'AdminController@courseAddAction']);//课程新增行为
+
+
 Route::any('admin/messages',    ['uses'=> 'AdminController@message']);//消息列表
 Route::any('admin/messages-push',    ['uses'=> 'AdminController@messagePush']);//消息发送
 Route::any('admin/messages-to',    ['uses'=> 'AdminController@messageTo']);//消息接收送人检查
