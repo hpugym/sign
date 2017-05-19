@@ -10,11 +10,11 @@ namespace App;
 
  class Course extends Model{
      //指定表名
-     protected $table = "messages";
+     protected $table = "courses";
      //指定主键
-     protected $primaryKey = "message_id";
+     protected $primaryKey = "course_num";
      //指定允许批量赋值
-     protected $fillable = ['message_to','message_status','message_title','message_content','message_time'];
+     protected $fillable = ['course_num','course_name','course_type','course_intro'];
      //自动维护时间戳
      public $timestamps = false;
 
