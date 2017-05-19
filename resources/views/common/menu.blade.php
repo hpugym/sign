@@ -89,6 +89,7 @@
                     <li><a href="{{url("admin/teachers")}}">教师管理</a></li>
                     <li><a href="{{url("admin/classRooms")}}">教室管理</a></li>
                     <li><a href="{{url("admin/students")}}">学生管理</a></li>
+                    <li><a href="{{url("admin/courses")}}">课程管理</a></li>
                     <li><a href="{{url("admin/notices")}}">发布公告</a></li>
                     <li><a href="{{url("admin/messages")}}">发送消息</a></li>
                 </ul>
