@@ -208,6 +208,9 @@
 
             if(sign_classRoom == "--请选择--"){
                 alert("请选择上课教室");
+                $(".tools-ceng").hide();
+                $(".tools-loading").hide();
+                $(".tools-notice").html("正在查询学生列表...");
             }else{
                 $.ajax({
                     url:"{{url("signmanager/getstudent")}}",
