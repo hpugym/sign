@@ -29,10 +29,17 @@ class SignController extends Controller{
         }
         $teachs_code = $_GET['teachs_code'];
         $course_name = $_GET['course_name'];
-        return view("sign/publish",[
-            "course_name" => $course_name,
-            "teachs_code" => $teachs_code
-        ]);
+
+        //查询该课程下是否存在学生
+        $num = DB::table('mycourses')->where("teachs_code", "=", $teachs_code)->count();
+        if($num == 0){
+            echo "<script>alert('该课程下没有学生，无法签到'); window.history.back(-1);</script>";
+        }else{
+            return view("sign/publish",[
+                "course_name" => $course_name,
+                "teachs_code" => $teachs_code
+            ]);
+        }
     }
 
     /**
