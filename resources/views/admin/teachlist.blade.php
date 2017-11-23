@@ -231,7 +231,16 @@
                                 <td>{{$teacher->teach_phone}}</td>
                                 <td>{{$teacher->teach_add}}</td>
                                 <td><img src="@if(empty($teacher->teach_image)){{url('./upload/uploadfiles/default.jpg')}} @else {{url("$teacher->teach_image")}} @endif" style="width: 64px; height: 64px; border-radius: 64px; overflow: hidden;"></td>
-                                <td><a href="javascript:edit({{$teacher->teach_id}})">修改</a>&nbsp;<a href="javascript:del({{$teacher->teach_id}})">删除</a></td>
+                                <td>
+                                    @if($teacher->user_type == 1)
+                                        <a href="javascript:void(0)" style="color:silver">已是管理员</a>&nbsp;
+                                    @else
+                                        <a href="javascript:admin({{$teacher->user_id}})" id="{{$teacher->user_id}}-action">置为管理员</a>&nbsp;
+                                    @endif
+                                    <a href="javascript:passReset({{$teacher->user_id}})">密码重置</a>&nbsp;
+                                    <a href="javascript:edit({{$teacher->teach_id}})">修改</a>&nbsp;
+                                    <a href="javascript:del({{$teacher->teach_id}})">删除</a>
+                                </td>
                             </tr>
                         @endforeach
                     @endif
@@ -387,6 +396,66 @@
                 }
             });
         }
+    }
+    //设置为管理员的操作
+    function admin(user_id){
+        $.ajax({
+            url:"{{url("admin/teacher/admin-action")}}",
+            type:"post",
+            data:{
+                "user_id": user_id,
+                _token : "{{csrf_token()}}"
+            },
+            async:"false",
+            dataType:"html",
+            success:function (data) {
+
+                var data2=JSON.parse(data);
+
+                if(data2.code == "0000") {
+                    alert("操作成功");
+                    //更改操作栏的显示
+                    $("#"+user_id+"-action").html("已是管理员");
+                    $("#"+user_id+"-action").css("color","silver");
+                    $("#"+user_id+"-action").attr("href","javascript:void(0)");
+                }else if(data2.code == "0001"){
+                    alert("操作失败");
+                }else if(data2.code == "0002"){
+                    alert("请求发生错误，请重试");
+                }
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    }
+    //密码重置操作
+    function passReset(user_id){
+        $.ajax({
+            url:"{{url("admin/teacher/passReset-action")}}",
+            type:"post",
+            data:{
+                "user_id": user_id,
+                _token : "{{csrf_token()}}"
+            },
+            async:"false",
+            dataType:"html",
+            success:function (data) {
+
+                var data2=JSON.parse(data);
+
+                if(data2.code == "0000") {
+                    alert("操作成功");
+                }else if(data2.code == "0001"){
+                    alert("操作失败");
+                }else if(data2.code == "0002"){
+                    alert("请求发生错误，请重试");
+                }
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
     }
 
 </script>

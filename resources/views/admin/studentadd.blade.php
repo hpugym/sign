@@ -97,16 +97,16 @@
         </div>
         <div class="main-content">
             <label style="margin-top: 60px;">学生学号:</label>
-            <input type="text" name="stu_num"><br/>
+            <input type="text" name="stu_num" placeholder="请输入12位学生学号"  onkeyup="this.value=this.value.replace(/^ +| +$/g,'')"><br/>
             <label>学生姓名:</label>
-            <input type="text" name="stu_name" onkeyup="this.value=this.value.replace(/^ +| +$/g,'')"><br/>
+            <input type="text" name="stu_name" placeholder="请输入学生"  onkeyup="this.value=this.value.replace(/^ +| +$/g,'')"><br/>
             <label>学生性别:</label>
             <select id="stu_sex">
                 <option value="男">男</option>
                 <option value="女">女</option>
             </select><br/>
             <label>专业班级:</label>
-            <input type="text" name="stu_class" onkeyup="this.value=this.value.replace(/^ +| +$/g,'')"><br/>
+            <input type="text" name="stu_class" placeholder="请输入所在班级"  onkeyup="this.value=this.value.replace(/^ +| +$/g,'')"><br/>
             <label>所在学院:</label>
             <select id="stu_college">
                 <option value="安全科学与工程学院">安全科学与工程学院</option>
